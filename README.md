@@ -17,11 +17,11 @@ The basic idea is that a user can create an account, set the birthdays of their 
 3. Inside the `birthday-keeper-rest-backend/` directory, build the JAR:
    - For **Linux/macOS**:
       ```bash
-      ./gradlew clean build
+      ./gradlew clean build -x test
       ```
    - For **Windows**:
       ```shell
-      gradlew.bat clean build
+      gradlew.bat clean build -x test
       ```
 4. Inside the root directory, use **docker-compose** to start the services:
     1. Start the MySQL service:
