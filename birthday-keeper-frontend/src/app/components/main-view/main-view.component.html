@@ -1,0 +1,13 @@
+<div class="container mt-3">
+    <div class="d-flex flex-column gap-3">
+      
+      <div *ngIf="user()?.role === 'ADMIN'" class="w-25">
+          <span>Administrator options</span>
+        <app-list-group-menu></app-list-group-menu>
+      </div>
+
+      <div class="w-100">
+        <app-simple-table></app-simple-table>
+      </div>
+    </div>
+  </div>

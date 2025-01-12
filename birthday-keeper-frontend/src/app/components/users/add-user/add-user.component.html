@@ -1,0 +1,52 @@
+<div class="container mt-3">
+
+    <div class="d-flex flex-column align-items-center">
+
+        <h4 class="display-6 my-3">Enter the details of the new user:</h4>
+    
+        <div class="d-flex justify-content-center w-100">
+            <form [formGroup]="form" class="d-flex flex-column w-50 mt-3">
+        
+                <mat-form-field>
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" formControlName="username">
+                    <mat-error>Username is required</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Password</mat-label>
+                    <input matInput type="password" formControlName="password">
+                    @if (form.get('password')?.hasError('pattern')) {
+                        <mat-error>Password does not meet the requirements.</mat-error>
+                    } @else if (form.get('password')?.hasError('required')) {
+                        <mat-error>Password is required.</mat-error>
+                    }
+                </mat-form-field>
+        
+                <mat-form-field>
+                    <mat-label>Role</mat-label>
+                    <mat-select formControlName="role">
+                        @for (role of roles; track role) {
+                            <mat-option [value]="role">{{role}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                
+                <div class="d-flex justify-content-between align-items-center my-2">
+                    <!-- <button mat-flat-button (click)="goBackToMain()" class="w-25 me-1 bg-warning">Go Back</button> -->
+                    <a mat-flat-button role="button" (click)="goBackToMain()" class="w-25 me-1 bg-warning">Go Back</a>
+                    <button mat-flat-button (click)="onSubmit()" [disabled]="form.invalid" class="w-75 ms-1">Add User</button>
+                </div>
+            </form>
+        </div>
+            
+            <div *ngIf="userAlreadyExists" class="alert alert-danger text-center mt-3 w-50">
+                <strong>Error:</strong> A user named <strong>{{insertedUsername}}</strong> already exists.
+            </div>
+            
+            <div *ngIf="successfulInsertion" class="alert alert-success text-center mt-3 w-50">
+                User <strong>{{insertedUsername}}</strong> has been added successfully!
+            </div>
+
+    </div>
+</div>

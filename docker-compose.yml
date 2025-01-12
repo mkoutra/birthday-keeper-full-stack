@@ -1,0 +1,37 @@
+version: '3.3'
+services:
+  mysql-db:
+    image: mysql:8.0.39
+    container_name: mysql-birthday-keeper-container
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=birthdaykeeperdb
+      - MYSQL_USER=springuser
+      - MYSQL_PASSWORD=12345
+  
+  spring-backend:
+    build:
+      context: ./birthday-keeper-rest-backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    container_name: spring-birthday-keeper-container
+    depends_on:
+      - mysql-db
+    environment:
+      - MYSQL_HOST=mysql-db
+      - MYSQL_PORT=3306
+      - MYSQL_DB=birthdaykeeperdb
+      - MYSQL_USER=springuser
+      - MYSQL_PASSWORD=12345
+  
+  angular-frontend:
+    build:
+      context: ./birthday-keeper-frontend
+      dockerfile: Dockerfile
+    container_name: angular-birthday-keeper-container
+    ports:
+      - "4200:80"

@@ -1,0 +1,58 @@
+<div class="container mt-3">
+    <!-- <app-navbar></app-navbar> -->
+
+    <div class="d-flex flex-column align-items-center">
+
+        <h4 class="display-6 my-3">Enter the details of your new friend:</h4>
+    
+        <div class="d-flex justify-content-center w-100">
+            <form [formGroup]="form" class="d-flex flex-column w-50 mt-3">
+        
+                <mat-form-field>
+                    <mat-label>First Name:</mat-label>
+                    <input matInput type="text" formControlName="firstname">
+                    <mat-error>Please enter the first name.</mat-error>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Last Name:</mat-label>
+                    <input matInput type="text" formControlName="lastname">
+                    <mat-error>Please enter the last name.</mat-error>
+                </mat-form-field>
+        
+                <mat-form-field>
+                    <mat-label>Nickname:</mat-label>
+                    <input matInput type="text" formControlName="nickname">
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dateOfBirth">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    @if (form.get('dateOfBirth')?.hasError('required')) {
+                        <mat-error>Please enter the date of birth.</mat-error>
+                    } @else {
+                        <mat-error>The date of birth cannot be in the future. </mat-error>
+                    }
+                </mat-form-field>
+                
+                <div class="d-flex justify-content-between align-items-center my-2">
+                    <!-- <button mat-flat-button (click)="goBackToMain()" class="w-25 me-1 bg-warning">Go Back</button> -->
+                    <a mat-flat-button role="button" (click)="goBackToMain()" class="w-25 me-1 bg-warning">Go Back</a>
+                    <button mat-flat-button (click)="onSubmit()" [disabled]="form.invalid" class="w-75 ms-1">Add Friend</button>
+                </div>
+            </form>
+        </div>
+            
+            <div *ngIf="friendAlreadyExists" class="alert alert-danger text-center mt-3 w-50">
+                <strong>Error:</strong>A friend named <strong>{{insertedFullname}}</strong> already exists.
+            </div>
+            
+            <div *ngIf="successfulInsertion" class="alert alert-success text-center mt-3 w-50">
+                Your friend <strong>{{insertedFullname}}</strong> has been added successfully!
+            </div>
+
+    </div>
+</div>

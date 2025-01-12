@@ -1,0 +1,47 @@
+
+<div class="container d-flex flex-column align-items-center border border-2 rounded mt-3 text-bg-light">
+
+    <div>
+        <h4 class="display-2 text-center">Welcome to Birthday Keeper!</h4>
+    </div>
+
+    <div class="d-flex justify-content-evenly w-75 mt-3">
+
+        <div class="me-3 align-content-center w-50">
+            <img src="images/birthday-cake.png" alt="BIRTHDAY CAKE IMAGE" class="img-fluid">
+        </div>
+
+        <form [formGroup]="form" class="form d-flex flex-column justify-content-center w-50 ms-3" (ngSubmit)="onSubmit()">
+            <h3 class="display-5 text-center">Login</h3>
+            
+            <mat-form-field appearance="outline">
+              <mat-label>Username</mat-label>
+              <input type="text" matInput formControlName="username">
+              <mat-error>Email is required</mat-error>
+            </mat-form-field>
+    
+            <mat-form-field class="form-field" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput formControlName="password">
+                <mat-error>Password is required.</mat-error>
+            </mat-form-field>
+    
+            <button mat-flat-button type="submit" [disabled]="form.invalid">Login</button>
+
+            @if (invalidLogin) {
+                <div class="alert alert-danger text-center mt-3">
+                    <strong>Error:</strong> Invalid username or password.
+                </div>
+            }
+
+            <div class="text-center fs-5 mt-3 border-top border-1 border-dark-subtle">
+                <div class="mt-2">
+                    <span>Don't have an account?</span>
+                </div>
+                <div>
+                    <a routerLink="/register" class="text-decoration-underline"><strong>Sign up</strong></a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

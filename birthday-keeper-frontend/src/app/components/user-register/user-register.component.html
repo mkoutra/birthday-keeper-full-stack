@@ -1,0 +1,143 @@
+<div class="container d-flex flex-column align-items-center border border-2 rounded mt-3 text-bg-light">
+    <div>
+        <h3 class="display-2 text-center">Sign up</h3>
+        <span>Create your account to start managing your friends' birthdays effortlessly!</span>
+    </div>
+    
+    <form [formGroup]="form" class="d-flex flex-column w-50 mt-3">
+
+        <mat-form-field>
+            <mat-label>Username:</mat-label>
+            <input matInput type="text" formControlName="username">
+            <mat-error>Username is required.</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field>
+            <mat-label>Password:</mat-label>
+            <input matInput type="password" formControlName="password" (focus)="showPassRequirements(true)">
+            @if (form.get('password')?.hasError('pattern')) {
+                <mat-error>Password does not meet the requirements.</mat-error>
+            } @else if (form.get('password')?.hasError('required')) {
+                <mat-error>Password is required.</mat-error>
+            }
+        </mat-form-field>
+
+        <div id="passwordRequirements" *ngIf="passwordRequirementsVisible" class="my-3">
+            Password must contain at least:
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item text-bg-light">8 Characters</li>
+                <li class="list-group-item text-bg-light">One uppercase letter</li>
+                <li class="list-group-item text-bg-light">One lowercase letter</li>
+                <li class="list-group-item text-bg-light">One digit</li>
+                <li class="list-group-item text-bg-light">
+                    One special character 
+                    <span matTooltip="!, &amp;, #, $, %, &, ., +, *">&#9432;</span>
+                </li>
+            </ul>
+        </div>
+
+        <mat-form-field>
+            <mat-label>Confirm Password:</mat-label>
+            <input matInput type="password" formControlName="confirmPassword">
+
+            @if(form.get("confirmPassword")?.hasError("passwordMismatch")) {
+                <mat-error>Passwords do not match.</mat-error>
+            } @else {
+                <mat-error>Confirm password is required.</mat-error>
+            }
+        </mat-form-field>
+        
+        <mat-checkbox formControlName="isAdmin">Register as administrator.</mat-checkbox>
+
+        <div class="d-flex justify-content-between align-items-center my-2">
+            <!-- <button mat-flat-button (click)="goBackToMain()" class="w-25 me-1 bg-warning">Go Back</button> -->
+            <a mat-flat-button role="button" routerLink="/login" class="w-25 me-1 bg-warning">Go Back</a>
+            <button mat-flat-button (click)="onSubmit()" [disabled]="form.invalid" class="w-75 ms-1">Sign up</button>
+        </div>
+    </form>
+
+    @if (userAlreadyExists) {
+        <div class="alert alert-danger text-center mt-3 w-50">
+            <strong>Error:</strong> A user with username <strong>{{insertedUsername}}</strong> already exists.
+        </div>
+    }
+
+    @if (successfulInsertion) {
+        <div class="alert alert-success text-center mt-3 w-50">
+            User <strong>{{insertedUsername}}</strong> inserted successfully!
+        </div>
+    }
+</div>
+
+<!-- <div class="container d-flex flex-column align-items-center border border-2 rounded mt-3 text-bg-light">
+    <div>
+        <h3 class="display-2 text-center">Sign up</h3>
+        <span>Create your account to start managing your friends' birthdays effortlessly!</span>
+    </div>
+    
+    <div class="d-flex gap-3 align-items-start w-50 border border-5 mt-3">
+        <form [formGroup]="form" class="d-flex flex-column w-100">
+    
+            <mat-form-field>
+                <mat-label>Username:</mat-label>
+                <input matInput type="text" formControlName="username">
+                <mat-error>Username is required.</mat-error>
+            </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>Password:</mat-label>
+                <input matInput type="password" formControlName="password" (focus)="showPassRequirements(true)">
+                @if (form.get('password')?.hasError('pattern')) {
+                    <mat-error>Password does not meet the requirements.</mat-error>
+                } @else if (form.get('password')?.hasError('required')) {
+                    <mat-error>Password is required.</mat-error>
+                }
+            </mat-form-field>
+    
+            <mat-form-field>
+                <mat-label>Confirm Password:</mat-label>
+                <input matInput type="password" formControlName="confirmPassword">
+    
+                @if(form.get("confirmPassword")?.hasError("passwordMismatch")) {
+                    <mat-error>Passwords do not match.</mat-error>
+                } @else {
+                    <mat-error>Confirm password is required.</mat-error>
+                }
+            </mat-form-field>
+            
+            <mat-checkbox formControlName="isAdmin">Register as administrator.</mat-checkbox>
+    
+            <button mat-flat-button (click)="onSubmit()" [disabled]="form.invalid" class="mb-3">Sign up</button>
+        </form>
+
+        <div *ngIf="passwordRequirementsVisible" id="passwordRequirements" class="d-flex flex-column justify-content-center border border-3">
+            <div class="text-nowrap">
+                <span>Password must contain at least:</span>
+            </div>
+            <ul class="list-group list-group-flush text-nowrap">
+                <li class="list-group-item text-bg-light">8 Characters</li>
+                <li class="list-group-item text-bg-light">One uppercase letter</li>
+                <li class="list-group-item text-bg-light">One lowercase letter</li>
+                <li class="list-group-item text-bg-light">One digit</li>
+                <li class="list-group-item text-bg-light">
+                    One special character 
+                    <span matTooltip="!, &amp;, #, $, %, &, ., +, *">&#9432;</span>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+    @if (userAlreadyExists) {
+        <div class="alert alert-danger text-center mt-3 w-50">
+            <strong>Error:</strong> A user with username <strong>{{insertedUsername}}</strong> already exists.
+        </div>
+    }
+
+    @if (successfulInsertion) {
+        <div class="alert alert-success text-center mt-3 w-50">
+            User <strong>{{insertedUsername}}</strong> inserted successfully!
+        </div>
+        <button mat-flat-button (click)="goBackToLogin()" class="mt-3 w-50">Back to login</button>
+    }
+</div> -->

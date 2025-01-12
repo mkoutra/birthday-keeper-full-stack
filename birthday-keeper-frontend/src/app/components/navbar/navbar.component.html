@@ -1,0 +1,12 @@
+<nav class="navbar navbar-dark bg-primary d-flex justify-content-between">
+    <a class="navbar-brand cursor-pointer mx-3" role="button" routerLink="/main">
+        <span class="display-3">Birthday Keeper</span>
+    </a>
+
+    <div *ngIf="user()" class="d-flex align-items-center mx-3">
+        <span class="me-3 text-light fs-5">
+            {{user()?.username}}
+        </span>
+        <mat-icon role="button" (click)="logout()" class="text-white" matTooltip="Logout">logout</mat-icon>
+    </div>
+</nav>

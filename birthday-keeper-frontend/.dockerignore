@@ -1,0 +1,29 @@
+# Ignore screenshots and README
+screenshots/
+README.md
+LICENCE
+
+# Ignore node_modules directory
+node_modules/
+
+# Ignore build output (Angular & Spring Boot)
+dist/
+build/
+
+# Ignore any git-related files
+.git/
+.gitignore
+
+# Ignore environment configuration files (if they contain sensitive data)
+.env
+
+# Ignore IDE-specific files (if you're using VSCode or IntelliJ)
+.vscode/
+.idea/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+.editorconfig
+
+.dockerignore
