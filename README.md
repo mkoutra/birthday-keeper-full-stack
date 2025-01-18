@@ -12,7 +12,7 @@ The basic idea is that a user can create an account, set the birthdays of their 
 
 ### Option 1: Use the `docker-compose.yml` file
 
-1. Ensure you have Docker and `docker-compose` installed on your system.
+1. Ensure you have Java 17+, Docker and `docker-compose` installed on your system.
 2. Clone the repository.
 3. Inside the `birthday-keeper-rest-backend/` directory, build the JAR:
    - For **Linux/macOS**:
